@@ -46,15 +46,15 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> with AutomaticKeepA
   getFeed() async {
     List<ActivityFeedItem> items = [];
     var snap = await Firestore.instance
-        .collection('insta_a_feed')
+        .collection('ding_gaurav')
         .document(currentUserModel.id)
         .collection("items")
-        .orderBy("timestamp")
+        .where('like', isEqualTo: 1)
         .getDocuments();
-
+      print(snap.documents);
     for (var doc in snap.documents) {
       items.add(ActivityFeedItem.fromDocument(doc));
-    }
+    }print(items);
     return items;
   }
 
@@ -67,42 +67,50 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> with AutomaticKeepA
 class ActivityFeedItem extends StatelessWidget {
   final String username;
   final String userId;
-  final String
-      type; // types include liked photo, follow user, comment on photo
+  // types include liked photo, follow user, comment on photo
   final String mediaUrl;
   final String mediaId;
   final String userProfileImg;
-  final String commentData;
+  var liker_image;
+  final String liker_id;
+  final String liker_name;
+
 
   ActivityFeedItem(
       {this.username,
       this.userId,
-      this.type,
+
       this.mediaUrl,
       this.mediaId,
       this.userProfileImg,
-      this.commentData});
+        this.liker_image,
+        this.liker_id,
+        this.liker_name,
+      });
 
   factory ActivityFeedItem.fromDocument(DocumentSnapshot document) {
     return ActivityFeedItem(
       username: document['username'],
       userId: document['userId'],
-      type: document['type'],
+
       mediaUrl: document['mediaUrl'],
       mediaId: document['postId'],
       userProfileImg: document['userProfileImg'],
-      commentData: document["commentData"],
+      liker_image: document['liker_image'],
+      liker_id: document['liker_id'],
+      liker_name: document['liker_name'],
+
     );
   }
 
   Widget mediaPreview = Container();
-  String actionText;
+  String actionText = " Liked Your Profile";
 
   void configureItem(BuildContext context) {
-    if (type == "like" || type == "comment") {
+    if (1== 1 ) {
       mediaPreview = GestureDetector(
         onTap: () {
-          openImage(context, mediaId);
+
         },
         child: Container(
           height: 45.0,
@@ -114,7 +122,7 @@ class ActivityFeedItem extends StatelessWidget {
                   image: DecorationImage(
                 fit: BoxFit.fill,
                 alignment: FractionalOffset.topCenter,
-                image: NetworkImage(mediaUrl),
+                image: NetworkImage(currentUserModel.photoUrl),
               )),
             ),
           ),
@@ -122,15 +130,7 @@ class ActivityFeedItem extends StatelessWidget {
       );
     }
 
-    if (type == "like") {
-      actionText = " liked your post.";
-    } else if (type == "follow") {
-      actionText = " starting following you.";
-    } else if (type == "comment") {
-      actionText = " commented: $commentData";
-    } else {
-      actionText = "Error - invalid activityFeed type: $type";
-    }
+
   }
 
   @override
@@ -143,7 +143,7 @@ class ActivityFeedItem extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20.0, right: 15.0),
           child: CircleAvatar(
             radius: 23.0,
-            backgroundImage: NetworkImage(userProfileImg),
+            backgroundImage: NetworkImage(liker_image),
           ),
         ),
         Expanded(
@@ -152,11 +152,13 @@ class ActivityFeedItem extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 child: Text(
-                  username,
+                  liker_name,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
-                  openProfile(context, userId);
+
+                  print(liker_id);
+                  openProfile(context, liker_id);
                 },
               ),
               Flexible(
@@ -170,37 +172,15 @@ class ActivityFeedItem extends StatelessWidget {
             ],
           ),
         ),
-        Container(
+   /*     Container(
             child: Align(
                 child: Padding(
                   child: mediaPreview,
                   padding: EdgeInsets.all(15.0),
                 ),
-                alignment: AlignmentDirectional.bottomEnd))
+                alignment: AlignmentDirectional.bottomEnd))*/
       ],
     );
   }
 }
 
-openImage(BuildContext context, String imageId) {
-  print("the image id is $imageId");
-  Navigator.of(context)
-      .push(MaterialPageRoute<bool>(builder: (BuildContext context) {
-    return Center(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text('Photo',
-                style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold)),
-            backgroundColor: Colors.white,
-          ),
-          body: ListView(
-            children: <Widget>[
-              Container(
-                child: ImagePostFromId(id: imageId),
-              ),
-            ],
-          )),
-    );
-  }));
-}
