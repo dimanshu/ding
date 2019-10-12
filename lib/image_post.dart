@@ -260,7 +260,7 @@ class _ImagePost extends State<ImagePost> {
     bool _liked = likes[userId] == true;
 
     if (_liked) {
-      print('removing like');
+   /*   print('removing like');
       reference.document(postId).updateData({
         'likes.$userId': false
         //firestore plugin doesnt support deleting, so it must be nulled / falsed
@@ -272,11 +272,11 @@ class _ImagePost extends State<ImagePost> {
         likes[userId] = false;
       });
 
-      removeActivityFeedItem();
+      removeActivityFeedItem();*/
     }
 
     if (!_liked) {
-      print('liking');
+    /*  print('liking');
       reference.document(postId).updateData({'likes.$userId': true});
 
       addActivityFeedItem();
@@ -291,7 +291,7 @@ class _ImagePost extends State<ImagePost> {
         setState(() {
           showHeart = false;
         });
-      });
+      });*/
     }
   }
 

@@ -20,6 +20,7 @@ dependencies:
   firebase_messaging: ^4.0.0+1
   location: ^2.3.3
   geocoder: ^0.1.2
+  flutter_tindercard: ^0.1.8
   giffy_dialog:
 
   # The following adds the Cupertino Icons font to your application.
@@ -47,6 +48,7 @@ flutter:
     - asset: assets/fonts/Billabong.ttf
   assets:
   - assets/images/google_signin_button.png
+  - res/portrait.jpeg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

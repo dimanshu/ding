@@ -181,7 +181,7 @@ class _Uploader extends State<Uploader> {
     int rand = Math.Random().nextInt(10000);
 
     Im.Image image = Im.decodeImage(file.readAsBytesSync());
-    Im.copyResize(image, 500);
+    Im.copyResize( image);
 
 //    image.format = Im.Image.RGBA;
 //    Im.Image newim = Im.remapColors(image, alpha: Im.LUMINANCE);

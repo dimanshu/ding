@@ -201,7 +201,7 @@ class _ProfilePage extends State<ProfilePage>
       // does not follow user - should show follow button
       if (!isFollowing) {
         return buildFollowButton(
-          text: "Follow",
+          text: "Like",
           backgroundcolor: Colors.blue,
           textColor: Colors.white,
           borderColor: Colors.blue,

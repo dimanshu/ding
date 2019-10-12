@@ -265,7 +265,7 @@ class _HomePageState extends State<HomePage> {
               activeColor: Colors.orange,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home,
+                    icon: Icon(Icons.check,
                         color: (_page == 0) ? Colors.black : Colors.grey),
                     title: Container(height: 0.0),
                     backgroundColor: Colors.white),
@@ -275,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                     title: Container(height: 0.0),
                     backgroundColor: Colors.white),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.add_circle,
+                    icon: Icon(Icons.sms,
                         color: (_page == 2) ? Colors.black : Colors.grey),
                     title: Container(height: 0.0),
                     backgroundColor: Colors.white),
