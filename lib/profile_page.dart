@@ -157,7 +157,7 @@ class _ProfilePage extends State<ProfilePage>
         Color borderColor,
         Function function}) {
       return Container(
-        padding: EdgeInsets.only(top: 2.0),
+        padding: EdgeInsets.only(top: 6.0),
         child: FlatButton(
             onPressed: function,
             child: Container(
@@ -168,9 +168,9 @@ class _ProfilePage extends State<ProfilePage>
               alignment: Alignment.center,
               child: Text(text,
                   style: TextStyle(
-                      color: textColor, fontWeight: FontWeight.bold)),
-              width: 250.0,
-              height: 27.0,
+                      color: textColor, fontWeight: FontWeight.bold, fontSize: 18)),
+              width: 290.0,
+              height: 45.0,
             )),
       );
     }
@@ -312,6 +312,7 @@ class _ProfilePage extends State<ProfilePage>
               followButtonClicked == false) {
             isFollowing = true;
           }
+          double width = MediaQuery.of(context).size.width;
 
           return Scaffold(
               appBar: AppBar(
@@ -324,64 +325,46 @@ class _ProfilePage extends State<ProfilePage>
               body: ListView(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(40),
                     child: Column(
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             CircleAvatar(
-                              radius: 40.0,
+                              radius: width / 2 - width / 10,
                               backgroundColor: Colors.grey,
                               backgroundImage: NetworkImage(user.photoUrl),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: <Widget>[
-                                 /* Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      buildStatColumn("posts", postCount),
-                                      buildStatColumn("followers",
-                                          _countFollowings(user.followers)),
-                                      buildStatColumn("following",
-                                          _countFollowings(user.following)),
-                                    ],
-                                  ),*/
-                                  Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        buildProfileFollowButton(user)
-                                      ]),
-                                ],
-                              ),
-                            )
                           ],
                         ),
                         Container(
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(top: 15.0),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(top: 10.0),
                             child: Text(
                               user.displayName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize:40, fontWeight: FontWeight.bold),
                             )),
                         Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 1.0),
-                          child: Text(user.bio),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                              user.bio,
+                              style: TextStyle(fontSize:20, fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 1.0),
-                          child: Text(user.bio),
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(top: 1.0),
-                          child: Text(user.bio),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    buildProfileFollowButton(user)
+                                  ]),
+                            ],
+                          ),
                         ),
                       ],
                     ),
