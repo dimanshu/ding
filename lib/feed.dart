@@ -267,20 +267,18 @@ class UserSearchItem extends StatelessWidget {
     print(currentUserModel.id);
     Firestore.instance
         .collection("ding_gaurav")
-        .document(currentUserModel.id)
-        .collection("items")
         .document(user.id)
+        .collection("items")
+        .document(currentUserModel.id)
 
         .setData({
-      "username": currentUserModel.username,
-      "userId": currentUserModel.id,
-      "liker_name":user.displayName,
-      "liker_id":user.id,
+
+      "liker_name":currentUserModel.displayName,
+      "liker_id":currentUserModel.id,
 
       "like":1,
-      "type": "like",
-      "liker_image":user.photoUrl,
-      "userProfileImg": currentUserModel.photoUrl,
+      "liker_image":currentUserModel.photoUrl,
+
 
       "timestamp": DateTime.now().toString(),
 
