@@ -41,7 +41,7 @@ class _SearchPage extends State<SearchPage> with AutomaticKeepAliveClientMixin<S
   void submit(String searchValue) async {
     Future<QuerySnapshot> users = Firestore.instance
         .collection("insta_users")
-        .where('displayName', isGreaterThanOrEqualTo: searchValue)
+        .where('displayName', isEqualTo: searchValue)
         .getDocuments();
 
     setState(() {
