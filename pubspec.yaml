@@ -52,6 +52,15 @@ flutter:
     - asset: assets/fonts/Billabong.ttf
   assets:
   - assets/images/google_signin_button.png
+  - images/mimi1.gif
+  - images/mimi2.gif
+  - images/mimi3.gif
+  - images/mimi4.gif
+  - images/mimi5.gif
+  - images/mimi6.gif
+  - images/mimi7.gif
+  - images/mimi8.gif
+  - images/mimi9.gif
   - res/portrait.jpeg
   # To add assets to your application, add an assets section, like this:
   # assets:
