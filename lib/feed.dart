@@ -25,8 +25,9 @@ import 'dart:async';
 import 'profile_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'comment_screen.dart';
-
+import 'package:flutter_tindercard/flutter_tindercard.dart';
 bool showAlignmentCards = false;
+CardController controller;
 /*
 
 return Scaffold(
@@ -59,6 +60,7 @@ class Feed extends StatefulWidget {
 }
 
 class _Feed extends State<Feed> with AutomaticKeepAliveClientMixin<Feed>{
+
   Future<QuerySnapshot> userDocs;
   bool showAlignmentCards = false;
   buildSearchField() {
@@ -99,7 +101,7 @@ String searchValue = " ";
   }
 
   Widget build(BuildContext context) {
-    CardController controller;
+
     super.build(context); // reloads state when opened again
 
     return Scaffold(
@@ -113,8 +115,8 @@ String searchValue = " ";
               return buildSearchResults(snapshot.data.documents);
             } else {
               return Container(
-                  alignment: FractionalOffset.center,
-                  child: CircularProgressIndicator()
+                /*  alignment: FractionalOffset.center,
+                  child: CircularProgressIndicator()*/
               );
             }
           }),
@@ -127,6 +129,7 @@ String searchValue = " ";
 }
 
 class UserSearchItem extends StatelessWidget {
+
   final User user;
   final int cardNum = 0;
   const UserSearchItem(this.user);
@@ -135,10 +138,7 @@ class UserSearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle boldStyle = TextStyle(
-      color: Colors.black,
-      fontWeight: FontWeight.bold,
-    );
+
 
      return SingleChildScrollView(
 
@@ -147,37 +147,117 @@ class UserSearchItem extends StatelessWidget {
        child:GestureDetector(
 
       child: new AspectRatio(
-        aspectRatio: 330 / 400,
+        aspectRatio: 450 / 400,
 
         child: new Container(
+          color: Colors.white,
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: new TinderSwapCard(
 
-            decoration: new BoxDecoration(
+              orientation: AmassOrientation.BOTTOM,
+              totalNum: 1,
+              stackNum: 3,
+              swipeEdge: 4.0,
+              maxWidth: MediaQuery.of(context).size.width * 0.9,
+              maxHeight: MediaQuery.of(context).size.width * 0.9,
+              minWidth: MediaQuery.of(context).size.width * 0.8,
+              minHeight: MediaQuery.of(context).size.width * 0.8,
+              cardBuilder: (context, index) => Card(
+                color: Colors.black,
+                child: /*new AspectRatio(
+                  aspectRatio: 300 / 350,
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundColor: Colors.black,
+                    backgroundImage: NetworkImage(user.photoUrl),
+                  ),
+                ),*/
 
-              image: new DecorationImage(
-
-                fit: BoxFit.fitWidth,
-                alignment: FractionalOffset.topCenter,
-                image: new NetworkImage(user.photoUrl),
-
-              )
 
 
-          ),
 
+                Column(
+                  children: <Widget>[
+                Column(
+                children: <Widget>[
+                  new AspectRatio(
+                    aspectRatio: 400 / 350,
+                    child: CircleAvatar(
+                      radius: 20.0,
+                      backgroundColor: Colors.black,
+                      backgroundImage: NetworkImage(user.photoUrl),
+                    ),
+                  ),
+
+
+                 Column(
+                    children: <Widget>[
+                       Column(
+
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        padding: const EdgeInsets.only(top: 1.0,left: 5.0),
+                                        child: Text(user.displayName , style: TextStyle(
+                                            color: Colors.white, fontWeight: FontWeight.bold) ,),
+
+
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        padding: const EdgeInsets.only(top: 1.0,left: 5.0),
+                                        child: Text(user.bio ,    style: TextStyle(
+                                            color: Colors.white, fontWeight: FontWeight.bold) ,),
+
+
+                                      ),
+                                    ],
+                                  ),
+
+                    ],
+                  ),
+
+                ],
+              ),],),
+
+
+
+
+
+
+
+              ),
+              cardController: controller = CardController(),
+              swipeUpdateCallback:
+                  (DragUpdateDetails details, Alignment align) {
+                /// Get swiping card's alignment
+                if (align.x < 0) {
+                  //Card is LEFT swiping
+                } else if (align.x > 0) {
+                  addActivityFeedItem();
+                }
+              },
+              swipeCompleteCallback:
+                  (CardSwipeOrientation orientation, int index) {
+                /// Get orientation & index of swiped card!
+              }
+        ),
         ),
 
 
       ),
 
-           onTap: () {
-             addActivityFeedItem();
-           }
+
 
        ),
 
        ),
 
      );
+
+
+
+
 
   }
 
@@ -208,7 +288,25 @@ class UserSearchItem extends StatelessWidget {
   }
 
 
- /* Widget buttonsRow(BuildContext context)
+
+
+
+
+/*  new DecorationImage(
+
+  fit: BoxFit.fitWidth,
+  alignment: FractionalOffset.topCenter,
+  image: new NetworkImage(user.photoUrl),
+
+  )*/
+
+
+
+
+
+
+
+  Widget buttonsRow()
   {
     return new Container
       (
@@ -251,14 +349,14 @@ class UserSearchItem extends StatelessWidget {
             (
             heroTag: "btn4  ",
             mini: false,
-            onPressed: () {openProfile(context, user.id);},
+            onPressed: () {},
             backgroundColor: Colors.white,
             child: new Icon(Icons.chat, color: Colors.blue),
           ),
         ],
       ),
     );
-  }*/
+  }
 
 
 }
