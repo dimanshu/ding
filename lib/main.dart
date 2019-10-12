@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'feed1.dart';
 import 'feed.dart';
 import 'upload_page.dart';
 import 'dart:async';
@@ -247,7 +248,7 @@ class _HomePageState extends State<HomePage> {
                 Container(color: Colors.white, child: SearchPage()),
                 Container(
                   color: Colors.white,
-                  child: Uploader(),
+                  child: Feed1(),
                 ),
                 Container(
                     color: Colors.white, child: ActivityFeedPage()),
