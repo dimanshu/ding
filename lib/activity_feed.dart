@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'image_post.dart'; //needed to open image when clicked
 import 'profile_page.dart'; // to open the profile page when username clicked
 import 'main.dart'; //needed for currentuser id
+import 'package:intl/intl.dart';
 
 class ActivityFeedPage extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _ActivityFeedPageState extends State<ActivityFeedPage> with AutomaticKeepA
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Activity Feed",
+          "Notifications",
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -136,31 +137,26 @@ class ActivityFeedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     configureItem(context);
-    return Row(
+    return
+      GestureDetector(
+        child: Row(
       mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 15.0),
+      children: <Widget>[Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 15.0, top: 14.0),
           child: CircleAvatar(
-            radius: 23.0,
+            radius: 30.0,
             backgroundImage: NetworkImage(liker_image),
           ),
         ),
+
         Expanded(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              GestureDetector(
-                child: Text(
-                  liker_name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Text(
+                  toBeginningOfSentenceCase(liker_name),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                onTap: () {
-
-                  print(liker_id);
-                  openProfile(context, liker_id);
-                },
-              ),
               Flexible(
                 child: Container(
                   child: Text(
@@ -172,15 +168,13 @@ class ActivityFeedItem extends StatelessWidget {
             ],
           ),
         ),
-   /*     Container(
-            child: Align(
-                child: Padding(
-                  child: mediaPreview,
-                  padding: EdgeInsets.all(15.0),
-                ),
-                alignment: AlignmentDirectional.bottomEnd))*/
       ],
-    );
+    ),
+          onTap: () {
+
+            print(liker_id);
+            openProfile(context, liker_id);
+          });
   }
 }
 
